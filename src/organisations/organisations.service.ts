@@ -8,6 +8,7 @@ import { OrganisationDto } from './dto/organisation.dto';
 import { Organisation } from './organisation.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LocationsService } from '../locations/locations.service';
+import { SearchDto } from 'src/search.dto';
 
 @Injectable()
 export class OrganisationsService {
@@ -16,6 +17,12 @@ export class OrganisationsService {
     private repository: OrganisationsRepository,
     private locationsService: LocationsService,
   ) {}
+
+
+  getOrganisations = async (filterDto: SearchDto,
+  ): Promise<Organisation[]> =>
+    this.repository.getOrganisations(filterDto);
+
 
   getOrganisationById = async (id: number): Promise<Organisation> => {
     const entity = await this.repository.findOne(id);
