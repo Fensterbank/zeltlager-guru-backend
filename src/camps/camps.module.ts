@@ -1,26 +1,30 @@
 import { Module } from '@nestjs/common';
-import { OrganisationsService } from './organisations.service';
-import { OrganisationsRepository } from './organisations.repository';
+import { CampsService } from './camps.service';
+import { CampsRepository } from './camps.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '../auth/auth.module';
 import { passportModule } from '../passport.module';
+import { OrganisationsRepository } from '../organisations/organisations.repository';
+import { OrganisationsService } from '../organisations/organisations.service';
 import { LocationsRepository } from '../locations/locations.repository';
 import { LocationsService } from '../locations/locations.service';
-import { OrganisationsController } from './organisations.controller';
+import { CampsController } from './camps.controller';
 
 @Module({
   imports: [
     passportModule,
     TypeOrmModule.forFeature([
-      OrganisationsRepository,
+      CampsRepository,
       LocationsRepository,
+      OrganisationsRepository,
     ]),
     AuthModule,
   ],
-  controllers: [OrganisationsController],
+  controllers: [CampsController],
   providers: [
-    OrganisationsService,
+    CampsService,
     LocationsService,
+    OrganisationsService,
   ],
 })
-export class OrganisationsModule {}
+export class CampsModule {}

@@ -3,7 +3,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Organisation } from './organisation.entity';
-import { SearchDto } from 'src/search.dto';
+import { SearchDto } from '../search.dto';
 
 @EntityRepository(Organisation)
 export class OrganisationsRepository extends Repository<Organisation> {

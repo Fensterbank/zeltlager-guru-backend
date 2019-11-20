@@ -9,10 +9,4 @@ export class LocationDto {
 
   @IsOptional()
   address: string;
-
-  @IsNotEmpty()
-  latitude: string;
-
-  @IsNotEmpty()
-  longitude: string;
 }

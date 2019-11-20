@@ -9,11 +9,12 @@ import { Location } from './location.entity';
 export class LocationsRepository extends Repository<Location> {
   private logger = new Logger('LocationRepository');
 
-  createLocation = async (dto: LocationDto) => {
+  createLocation = async (dto: LocationDto, latitude: number, longitude: number) => {
     const entity = new Location();
+    entity.address = dto.address;
     entity.city = dto.city;
-    entity.latitude = dto.latitude;
-    entity.longitude = dto.longitude;
+    entity.latitude = latitude;
+    entity.longitude = longitude;
     entity.zip = dto.zip;
 
     try {

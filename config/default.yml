@@ -5,3 +5,6 @@ db:
   type: 'postgres'
   port: 5432
   database: 'zeltlager-guru'
+
+secrets:
+  opencage_key: '30053e8a13034c898fff705e3b1ee6d2'

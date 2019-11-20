@@ -4,7 +4,7 @@ export class OrganisationDto {
   @IsNotEmpty()
   name: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   description: string;
 
   @IsOptional()
@@ -27,10 +27,4 @@ export class OrganisationDto {
 
   @IsOptional()
   address: string;
-
-  @IsOptional()
-  latitude: string;
-
-  @IsOptional()
-  longitude: string;
 }

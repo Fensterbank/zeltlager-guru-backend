@@ -8,7 +8,7 @@ import { OrganisationDto } from './dto/organisation.dto';
 import { Organisation } from './organisation.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LocationsService } from '../locations/locations.service';
-import { SearchDto } from 'src/search.dto';
+import { SearchDto } from '../search.dto';
 
 @Injectable()
 export class OrganisationsService {
@@ -46,8 +46,6 @@ export class OrganisationsService {
         city: dto.city,
         zip: dto.zip,
         address: dto.address,
-        latitude: dto.latitude,
-        longitude: dto.longitude,
       });
     }
     return await entity.save();
@@ -63,8 +61,6 @@ export class OrganisationsService {
     entity.location.city = dto.city;
     entity.location.zip = dto.zip;
     entity.location.address = dto.address;
-    entity.location.latitude = dto.latitude;
-    entity.location.longitude = dto.longitude;
     return await entity.save();
   };
 

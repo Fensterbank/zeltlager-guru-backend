@@ -5,8 +5,8 @@ import {
   Column,
   OneToMany,
 } from 'typeorm';
-import { Campground } from 'src/campground/campground.entity';
-import { Organisation } from 'src/organisations/organisation.entity';
+import { Campground } from '../campground/campground.entity';
+import { Organisation } from '../organisations/organisation.entity';
 
 @Entity()
 export class Location extends BaseEntity {
@@ -26,11 +26,11 @@ export class Location extends BaseEntity {
   @Column()
   city: string;
 
-  @Column()
-  latitude: string;
+  @Column({ type: 'decimal' })
+  latitude: number;
 
-  @Column()
-  longitude: string;
+  @Column({ type: 'decimal' })
+  longitude: number;
 
   @OneToMany(type => Campground, x => x.location, { eager: false, nullable: true })
   campgrounds: Campground[];

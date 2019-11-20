@@ -37,9 +37,7 @@ export class CampgroundsService {
         city: dto.city,
         zip: dto.zip,
         address: dto.address,
-        latitude: dto.latitude,
-        longitude: dto.longitude,
-      });
+      }, dto.latitude, dto.longitude);
     }
     return await entity.save();
   }

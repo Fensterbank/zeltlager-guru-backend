@@ -6,8 +6,10 @@ import {
   OneToOne,
   JoinColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { Location } from '../locations/location.entity';
+import { Camp } from '../camps/camp.entity';
 
 @Entity()
 export class Organisation extends BaseEntity {
@@ -21,7 +23,7 @@ export class Organisation extends BaseEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @Column()
@@ -32,4 +34,7 @@ export class Organisation extends BaseEntity {
 
   @ManyToOne(type => Location, x => x.campgrounds, { eager: true })
   location: Location;
+
+  @OneToMany(type => Camp, x => x.organisation, { eager: false, nullable: false })
+  camps: Camp[];
 }

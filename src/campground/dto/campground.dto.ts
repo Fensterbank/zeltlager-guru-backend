@@ -23,8 +23,8 @@ export class CampgroundDto {
   address: string;
 
   @IsOptional()
-  latitude: string;
+  latitude: number;
 
   @IsOptional()
-  longitude: string;
+  longitude: number;
 }

@@ -14,7 +14,7 @@ import {
 import { OrganisationsService } from './organisations.service';
 import { OrganisationDto } from './dto/organisation.dto';
 import { Organisation } from './organisation.entity';
-import { SearchDto } from 'src/search.dto';
+import { SearchDto } from '../search.dto';
 
 @Controller('orgs')
 export class OrganisationsController {
