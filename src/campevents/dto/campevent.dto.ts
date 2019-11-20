@@ -5,8 +5,11 @@ export class CampEventDto {
   @IsNotEmpty()
   name: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   description: string;
+
+  @IsOptional()
+  url: string;
 
   @IsOptional()
   motto: string;

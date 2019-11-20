@@ -20,17 +20,17 @@ export class Location extends BaseEntity {
   @Column()
   zip: string;
 
-  @Column()
+  @Column({ nullable: true })
   address: string;
 
   @Column()
   city: string;
 
   @Column({ type: 'decimal' })
-  latitude: number;
+  lat: number;
 
   @Column({ type: 'decimal' })
-  longitude: number;
+  lng: number;
 
   @OneToMany(type => Campground, x => x.location, { eager: false, nullable: true })
   campgrounds: Campground[];

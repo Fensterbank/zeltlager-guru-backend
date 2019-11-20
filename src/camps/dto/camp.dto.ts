@@ -8,6 +8,9 @@ export class CampDto {
   description: string;
 
   @IsOptional()
+  url: string;
+
+  @IsOptional()
   teamCount: number;
 
   @IsOptional()

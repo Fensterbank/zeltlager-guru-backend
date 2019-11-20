@@ -36,6 +36,7 @@ export class CampsService {
     const entity = new Camp();
     entity.name = dto.name;
     entity.description = dto.description;
+    entity.url = dto.url;
     entity.teamCount = dto.teamCount;
     entity.kidsCount = dto.kidsCount;
     entity.minAge = dto.minAge;
@@ -52,6 +53,7 @@ export class CampsService {
     const entity = await this.getCampById(id);
     entity.name = dto.name;
     entity.description = dto.description;
+    entity.url = dto.url;
     entity.teamCount = dto.teamCount;
     entity.kidsCount = dto.kidsCount;
     entity.minAge = dto.minAge;

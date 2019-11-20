@@ -12,6 +12,7 @@ import { OrganisationsService } from '../organisations/organisations.service';
 import { OrganisationsRepository } from '../organisations/organisations.repository';
 import { LocationsService } from '../locations/locations.service';
 import { LocationsRepository } from '../locations/locations.repository';
+import { CampEventsController } from './campevents.controller';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { LocationsRepository } from '../locations/locations.repository';
     ]),
     AuthModule,
   ],
-  controllers: [],
+  controllers: [CampEventsController],
   providers: [
     CampEventsService,
     LocationsService,

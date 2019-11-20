@@ -22,10 +22,13 @@ export class CampEvent extends BaseEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
+  url: string;
+
+  @Column({ nullable: true })
   motto: string;
 
   @Column()
@@ -34,10 +37,10 @@ export class CampEvent extends BaseEntity {
   @Column()
   end: Date;
 
-  @Column()
+  @Column({ nullable: true })
   teamCount: number;
 
-  @Column()
+  @Column({ nullable: true })
   kidsCount: number;
 
   @ManyToOne(type => Camp, x => x.campEvents, { eager: true, nullable: false })

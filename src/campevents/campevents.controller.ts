@@ -16,9 +16,16 @@ import { CampEventDto } from './dto/campevent.dto';
 import { CampEvent } from './campevent.entity';
 import { SearchDto } from '../search.dto';
 
-@Controller('orgs')
+@Controller('campevents')
 export class CampEventsController {
   constructor(private service: CampEventsService) {}
+
+  @Get('/:id')
+  getCampEvent(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<CampEvent> {
+    return this.service.getCampEventById(id)
+  }
 
   @Get()
   getCampEvents(

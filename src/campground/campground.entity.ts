@@ -23,7 +23,7 @@ export class Campground extends BaseEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @ManyToOne(type => Location, x => x.campgrounds, { eager: true })

@@ -39,6 +39,7 @@ export class CampEventsService {
     const entity = new CampEvent();
     entity.name = dto.name;
     entity.description = dto.description;
+    entity.url = dto.url;
     entity.motto = dto.motto;
     entity.begin = dto.begin;
     entity.end = dto.end;
@@ -65,6 +66,7 @@ export class CampEventsService {
     const entity = await this.getCampEventById(id);
     entity.name = dto.name;
     entity.description = dto.description;
+    entity.url = dto.url;
     entity.motto = dto.motto;
     entity.begin = dto.begin;
     entity.end = dto.end;

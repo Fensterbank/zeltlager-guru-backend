@@ -16,7 +16,7 @@ import { CampDto } from './dto/camp.dto';
 import { Camp } from './camp.entity';
 import { SearchDto } from '../search.dto';
 
-@Controller('orgs')
+@Controller('camps')
 export class CampsController {
   constructor(private service: CampsService) {}
 

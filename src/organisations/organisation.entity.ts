@@ -26,7 +26,7 @@ export class Organisation extends BaseEntity {
   @Column({ nullable: true })
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   url: string;
 
   @Column()

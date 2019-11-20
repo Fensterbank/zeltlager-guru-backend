@@ -58,9 +58,13 @@ export class OrganisationsService {
     const entity = await this.getOrganisationById(id);
     entity.name = dto.name;
     entity.description = dto.description;
-    entity.location.city = dto.city;
-    entity.location.zip = dto.zip;
-    entity.location.address = dto.address;
+    entity.religion = dto.religion;
+
+    entity.location = await this.locationsService.updateLocation(entity.location.id, {
+      address: dto.address,
+      zip: dto.zip,
+      city: dto.city,
+    });
     return await entity.save();
   };
 

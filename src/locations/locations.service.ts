@@ -25,12 +25,12 @@ export class LocationsService {
     return entity;
   };
 
-  createLocation = async (dto: LocationDto, latitude: number = null, longitude: number = null): Promise<Location> => {
+  createLocation = async (dto: LocationDto, lat: number = null, lng: number = null): Promise<Location> => {
     let geodata: Coordinates;
-    if (latitude && longitude) {
+    if (lat && lng) {
       geodata = {
-        lat: latitude,
-        lng: longitude
+        lat: lat,
+        lng: lng
       };
     } else {
       geodata = await getCoordinatesByAddress(dto.address, dto.zip, dto.city);
@@ -43,16 +43,15 @@ export class LocationsService {
     dto: LocationDto,
   ): Promise<Location> => {
     const entity = await this.getLocationById(id);
+    if (entity.address !== dto.address || entity.city !== dto.city || entity.zip !== dto.zip) {
+      const geodata = await getCoordinatesByAddress(dto.address, dto.zip, dto.city);
+      entity.lat = geodata.lat;
+      entity.lng = geodata.lng;
+    }
+
     entity.address = dto.address;
     entity.city = dto.city;
     entity.zip = dto.zip;
-
-    if (entity.address !== dto.address || entity.city !== dto.city || entity.zip !== dto.zip) {
-      const geodata = await getCoordinatesByAddress(dto.address, dto.zip, dto.city);
-      entity.latitude = geodata.lat;
-      entity.longitude = geodata.lng;
-    }
-
     
     return entity.save();
   };

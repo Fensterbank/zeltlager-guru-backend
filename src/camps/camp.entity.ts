@@ -26,10 +26,13 @@ export class Camp extends BaseEntity {
   @Column()
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
+  url: string;
+
+  @Column({ nullable: true })
   teamCount: number;
 
-  @Column()
+  @Column({ nullable: true })
   kidsCount: number;
 
   @Column()

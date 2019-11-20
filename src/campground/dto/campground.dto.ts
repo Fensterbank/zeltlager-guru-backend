@@ -4,7 +4,7 @@ export class CampgroundDto {
   @IsNotEmpty()
   name: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   description: string;
 
   @IsOptional()
@@ -23,8 +23,8 @@ export class CampgroundDto {
   address: string;
 
   @IsOptional()
-  latitude: number;
+  lat: number;
 
   @IsOptional()
-  longitude: number;
+  lng: number;
 }
