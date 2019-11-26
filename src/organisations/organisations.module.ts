@@ -6,7 +6,6 @@ import { AuthModule } from '../auth/auth.module';
 import { passportModule } from '../passport.module';
 import { LocationsRepository } from '../locations/locations.repository';
 import { LocationsService } from '../locations/locations.service';
-import { OrganisationsController } from './organisations.controller';
 import { OrganisationsResolver } from './organisations.resolver';
 
 @Module({
@@ -18,7 +17,7 @@ import { OrganisationsResolver } from './organisations.resolver';
     ]),
     AuthModule,
   ],
-  controllers: [OrganisationsController],
+  controllers: [],
   providers: [
     OrganisationsResolver,
     OrganisationsService,

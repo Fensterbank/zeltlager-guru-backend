@@ -62,12 +62,8 @@ export class AuthService {
     return entity;
   };
 
-  signIn = async (
-    authCredentialsDto: AuthCredentialsDto,
-  ): Promise<{ accessToken: string; user: BaseUser }> => {
-    const user = await this.userRepository.validateUserPassword(
-      authCredentialsDto,
-    );
+  signIn = async (username: string, password: string): Promise<{ accessToken: string; user: BaseUser }> => {
+    const user = await this.userRepository.validateUserPassword(username, password);
 
     if (!user) throw new UnauthorizedException('Invalid username or password');
 

@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { Reflector } from '@nestjs/core';
 import { PermissionLevel } from './permission-level.enum';
 import { User } from './user.entity';
+import { GqlExecutionContext } from '@nestjs/graphql';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -23,8 +24,8 @@ export class RolesGuard implements CanActivate {
     );
     if (!roles) return true;
 
-    const request = context.switchToHttp().getRequest();
-    const user = request.user as User;
+    const ctx = GqlExecutionContext.create(context);
+    const user = ctx.getContext().req.user as User;
 
     if (user instanceof UnauthorizedException)
       throw user;

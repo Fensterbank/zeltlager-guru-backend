@@ -7,7 +7,7 @@ import {
   JoinColumn,
   ManyToOne,
 } from 'typeorm';
-import { Field, ID, ObjectType } from 'type-graphql';
+import { Field, ID, ObjectType, Int } from 'type-graphql';
 import { Camp } from '../camps/camp.entity';
 import { Campground } from '../campground/campground.entity';
 
@@ -46,11 +46,11 @@ export class CampEvent extends BaseEntity {
   @Column()
   end: Date;
 
-  @Field({ nullable: true })
+  @Field(type => Int, { nullable: true })
   @Column({ nullable: true })
   teamCount: number;
 
-  @Field({ nullable: true })
+  @Field(type => Int, { nullable: true })
   @Column({ nullable: true })
   kidsCount: number;
 

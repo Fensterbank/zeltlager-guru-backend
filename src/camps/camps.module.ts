@@ -8,7 +8,7 @@ import { OrganisationsRepository } from '../organisations/organisations.reposito
 import { OrganisationsService } from '../organisations/organisations.service';
 import { LocationsRepository } from '../locations/locations.repository';
 import { LocationsService } from '../locations/locations.service';
-import { CampsController } from './camps.controller';
+import { CampsResolver } from './camps.resolver';
 
 @Module({
   imports: [
@@ -20,8 +20,9 @@ import { CampsController } from './camps.controller';
     ]),
     AuthModule,
   ],
-  controllers: [CampsController],
+  controllers: [],
   providers: [
+    CampsResolver,
     CampsService,
     LocationsService,
     OrganisationsService,

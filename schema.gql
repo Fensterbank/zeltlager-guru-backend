@@ -3,17 +3,40 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input AuthCredentialsDto {
+  username: String!
+  password: String
+  permissionLevel: String!
+}
+
+type BaseUser {
+  id: ID!
+  username: String!
+  permissionLevel: String!
+}
+
 type Camp {
   id: ID!
   name: String!
   description: String!
   url: String
-  teamCount: Float
-  kidsCount: Float
-  minAge: Float!
-  maxAge: Float!
+  teamCount: Int
+  kidsCount: Int
+  minAge: Int!
+  maxAge: Int!
   organisation: Organisation!
   campEvents: [CampEvent!]!
+}
+
+input CampDto {
+  name: String!
+  description: String!
+  url: String
+  teamCount: Int
+  kidsCount: Int
+  minAge: Int
+  maxAge: Int
+  organisationID: Int!
 }
 
 type CampEvent {
@@ -24,10 +47,24 @@ type CampEvent {
   motto: String
   begin: DateTime!
   end: DateTime!
-  teamCount: Float
-  kidsCount: Float
+  teamCount: Int
+  kidsCount: Int
   camp: Camp!
   campground: Campground!
+}
+
+input CampEventDto {
+  name: String!
+  description: String
+  url: String
+  motto: String
+  begin: DateTime!
+  end: DateTime!
+  teamCount: Int
+  kidsCount: Int
+  campID: Int!
+  campgroundID: Int
+  campground: CampgroundDto
 }
 
 type Campground {
@@ -36,6 +73,17 @@ type Campground {
   description: String
   location: Location!
   campevents: [CampEvent!]!
+}
+
+input CampgroundDto {
+  name: String!
+  description: String
+  locationID: Int
+  zip: String
+  city: String
+  address: String
+  lat: Float
+  lng: Float
 }
 
 """
@@ -53,6 +101,21 @@ type Location {
   organisations: [Organisation!]!
 }
 
+type Mutation {
+  createUser(data: AuthCredentialsDto!): BaseUser!
+  updateUser(data: AuthCredentialsDto!, id: Float!): BaseUser!
+  deleteUser(id: Float!): Boolean!
+  createOrganisation(data: OrganisationDto!): Organisation!
+  updateOrganisation(data: OrganisationDto!, id: Float!): Organisation!
+  deleteOrganisation(id: Float!): Boolean!
+  createCamp(data: CampDto!): Camp!
+  updateCamp(data: CampDto!, id: Float!): Camp!
+  deleteCamp(id: Float!): Boolean!
+  createCampEvent(data: CampEventDto!): CampEvent!
+  updateCampEvent(data: CampEventDto!, id: Float!): CampEvent!
+  deleteCampEvent(id: Float!): Boolean!
+}
+
 type Organisation {
   id: ID!
   name: String!
@@ -63,7 +126,33 @@ type Organisation {
   camps: [Camp!]
 }
 
+input OrganisationDto {
+  name: String!
+  description: String
+  url: String
+  religion: String
+  locationID: Int
+  zip: String
+  city: String
+  address: String
+}
+
 type Query {
-  hello: String!
+  signIn(password: String!, username: String!): String!
+  users: [BaseUser!]!
+  isSignedIn: BaseUser!
   organisation(id: Float!): Organisation!
+  organisations(search: String!, skip: Int, take: Int): [Organisation!]!
+  camp(id: Float!): Camp!
+  camps(search: String!, skip: Int, take: Int): [Camp!]!
+  campevent(id: Float!): CampEvent!
+  campevents(search: String!, skip: Int, take: Int): [CampEvent!]!
+}
+
+type User {
+  id: ID!
+  username: String!
+  password: String!
+  salt: String!
+  permissionLevel: String
 }

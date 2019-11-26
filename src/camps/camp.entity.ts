@@ -8,7 +8,7 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { Field, ID, ObjectType } from 'type-graphql';
+import { Field, ID, ObjectType, Int } from 'type-graphql';
 import { Organisation } from '../organisations/organisation.entity';
 import { CampEvent } from '../campevents/campevent.entity';
 
@@ -35,19 +35,19 @@ export class Camp extends BaseEntity {
   @Column({ nullable: true })
   url: string;
 
-  @Field({ nullable: true })
+  @Field(type => Int, { nullable: true })
   @Column({ nullable: true })
   teamCount: number;
 
-  @Field({ nullable: true })
+  @Field(type => Int, { nullable: true })
   @Column({ nullable: true })
   kidsCount: number;
 
-  @Field()
+  @Field(type => Int)
   @Column()
   minAge: number;
 
-  @Field()
+  @Field(type => Int)
   @Column()
   maxAge: number;
 

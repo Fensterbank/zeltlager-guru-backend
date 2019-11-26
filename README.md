@@ -8,7 +8,7 @@ The project is not yet in production.
 
 This project is powered by [NestJS](https://nestjs.com/), a progressive [Node.js](http://nodejs.org) framework for building efficient and scalable server-side applications, heavily inspired by [Angular](https://angular.io).
 
-It makes use of TypeORM with PostgreSQL and provides a GraphQL-Server built on Apollo.
+It makes use of TypeORM with PostgreSQL and provides a GraphQL-Server built on Apollo using the code-fist approach.
 
 
 ## Running the app

@@ -38,7 +38,7 @@ import { GraphQLModule } from '@nestjs/graphql';
     CampsModule,
     CampEventsModule,
     GraphQLModule.forRoot({
-      include: [OrganisationsModule],
+      context: ({ req }) => ({ req }),
       autoSchemaFile: 'schema.gql',
     }),
   ],
