@@ -10,4 +10,4 @@ secrets:
   opencage_key: '30053e8a13034c898fff705e3b1ee6d2'
 
 jwt:
-  expiresIn: 36000
+  expiresIn: 3600

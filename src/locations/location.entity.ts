@@ -46,4 +46,8 @@ export class Location extends BaseEntity {
   @Field(type => [Organisation])
   @OneToMany(type => Organisation, x => x.location, { eager: false, nullable: true })
   organisations: Organisation[];
+
+  toString(): string {
+    return `${this.address ? this.address + ', ' : ''}${this.zip} ${this.city} [${this.lat},${this.lng}]`;
+  }
 }

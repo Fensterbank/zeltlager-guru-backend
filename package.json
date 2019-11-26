@@ -1,6 +1,6 @@
 {
   "name": "zeltlager-guru-backend",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Backend für zeltlager.guru",
   "author": "Frédéric Bolvin <frederic@bol.vin> (https://bol.vin)",
   "license": "UNLICENSED",
@@ -37,6 +37,7 @@
     "config": "^3.2.4",
     "graphql": "^14.5.8",
     "graphql-tools": "^4.0.6",
+    "nest-winston": "^1.2.0",
     "opencage-api-client": "^0.5.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
@@ -45,7 +46,8 @@
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
     "type-graphql": "^0.17.5",
-    "typeorm": "^0.2.20"
+    "typeorm": "^0.2.20",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.9.0",

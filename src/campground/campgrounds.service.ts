@@ -2,12 +2,14 @@ import {
   Injectable,
   NotFoundException,
   ConflictException,
+  Inject,
 } from '@nestjs/common';
 import { CampgroundsRepository } from './campgrounds.repository';
 import { CampgroundDto } from './dto/campground.dto';
 import { Campground } from './campground.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LocationsService } from '../locations/locations.service';
+import { Logger } from 'winston';
 
 @Injectable()
 export class CampgroundsService {
@@ -15,8 +17,14 @@ export class CampgroundsService {
     @InjectRepository(CampgroundsRepository)
     private repository: CampgroundsRepository,
     private locationsService: LocationsService,
+    @Inject('winston')
+    private readonly logger: Logger,
   ) {}
 
+  /**
+   * Gets a specific campground.
+   * @param {number} id - The id of the campgorund.
+   */
   getCampgroundById = async (id: number): Promise<Campground> => {
     const entity = await this.repository.findOne(id);
 
@@ -25,6 +33,10 @@ export class CampgroundsService {
     return entity;
   };
 
+   /**
+   * Creates a new campground. Does create a new location entity if necessary.
+   * @param {CampgroundDto} dto - The data transport object containing all entity information.
+   */
   createCampground = async (dto: CampgroundDto): Promise<Campground> => {
     const entity = new Campground();
     entity.name = dto.name;
@@ -39,9 +51,16 @@ export class CampgroundsService {
         address: dto.address,
       }, dto.lat, dto.lng);
     }
-    return await entity.save();
+    await entity.save();
+    this.logger.info(`Campground ${entity.name} with ID #${entity.id} created.`);
+    return entity;
   }
 
+  /**
+   * Updates an existing campground and the referenced location.
+   * @param {number} id - The id of the campground to update.
+   * @param {CampgroundDto} dto - The data transport object containing all entity information.
+   */
   updateCampground = async (
     id: number,
     dto: CampgroundDto,
@@ -54,9 +73,15 @@ export class CampgroundsService {
     entity.location.address = dto.address;
     entity.location.lat = dto.lat;
     entity.location.lng = dto.lng;
-    return await entity.save();
+    await entity.save();
+    this.logger.info(`Campground ${entity.name} with ID #${entity.id} updated.`);
+    return entity;
   };
 
+  /**
+   * Deletes an existing campground.
+   * @param {number} id - The id of the campground to delete.
+   */
   deleteCampground = async (id: number): Promise<void> => {
     let result;
     try {
