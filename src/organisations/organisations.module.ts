@@ -7,6 +7,7 @@ import { passportModule } from '../passport.module';
 import { LocationsRepository } from '../locations/locations.repository';
 import { LocationsService } from '../locations/locations.service';
 import { OrganisationsController } from './organisations.controller';
+import { OrganisationsResolver } from './organisations.resolver';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { OrganisationsController } from './organisations.controller';
   ],
   controllers: [OrganisationsController],
   providers: [
+    OrganisationsResolver,
     OrganisationsService,
     LocationsService,
   ],

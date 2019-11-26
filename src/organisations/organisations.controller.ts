@@ -20,6 +20,12 @@ import { SearchDto } from '../search.dto';
 export class OrganisationsController {
   constructor(private service: OrganisationsService) {}
 
+
+  @Get('/:id')
+  getOrganisation(@Param('id', ParseIntPipe) id: number): Promise<Organisation> {
+    return this.service.getOrganisationById(id);
+  }
+
   @Get()
   getOrganisations(
     @Query(ValidationPipe) filterDto: SearchDto,
