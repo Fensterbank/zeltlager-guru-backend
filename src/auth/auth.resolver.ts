@@ -1,6 +1,6 @@
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
-import { User, BaseUser } from './user.entity';
+import { User, AuthUser } from './user.entity';
 import { UseGuards, BadRequestException, ParseIntPipe, UnauthorizedException } from '@nestjs/common';
 import { GqlAuthGuard } from './gqlAuth.guard';
 import { RolesGuard } from './roles.guard';
@@ -9,53 +9,54 @@ import { PermissionLevel } from './permission-level.enum';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { GetUser } from './get-user.decorator';
 
-@Resolver(of => BaseUser)
+@Resolver(of => AuthUser)
 export class AuthResolver {
-  constructor(private readonly service: AuthService) {}
+  constructor(private readonly service: AuthService) { }
 
-  @Query(returns => String)
-  async signIn(@Args('username') username: string, @Args('password') password: string): Promise<String> {
-    const token = await this.service.signIn(username, password);
-    return token.accessToken;
+  @Mutation(returns => AuthUser)
+  async signIn(@Args('username') username: string, @Args('password') password: string): Promise<AuthUser> {
+    return this.service.signIn(username, password);
   }
 
-  @Query(returns => [BaseUser])
+  @Query(returns => [AuthUser])
   @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(PermissionLevel.ADMIN)
-  async users(): Promise<BaseUser[]> {
-    return this.service.getAllUsers();
+  async users(): Promise<AuthUser[]> {
+    return this.service.getAllUsers().then(users => users.map(user => ({
+      username: user.username,
+      id: user.id,
+      permissionLevel: user.permissionLevel,
+      accessToken: null,
+    })));
   }
 
-  @Query(returns => BaseUser)
+  @Query(returns => AuthUser)
   @UseGuards(GqlAuthGuard, RolesGuard)
-  @Roles(PermissionLevel.ADMIN)
-  async isSignedIn(@GetUser() user: User | Boolean): Promise<BaseUser> {
-    if (user instanceof UnauthorizedException || user === false)
-      return null;
-    else {
-      const u = user as User;
-      return {
-        username: u.username,
-        id: u.id,
-        permissionLevel: u.permissionLevel,
-      };
-    }
+  async currentUser(@GetUser() user: User | Boolean): Promise<AuthUser> {
+    // Throws unauthorized exception if user is not signed in
+    const u = user as User;
+    return {
+      username: u.username,
+      id: u.id,
+      permissionLevel: u.permissionLevel,
+      accessToken: null,
+    };
   }
 
-  @Mutation(returns => BaseUser)
+  @Mutation(returns => AuthUser)
   @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(PermissionLevel.ADMIN)
-  createUser(@Args('data') data: AuthCredentialsDto): Promise<BaseUser> {
+  createUser(@Args('data') data: AuthCredentialsDto): Promise<AuthUser> {
     if (data.password == null)
-       throw new BadRequestException('Please provide a password when creating a user.');
+      throw new BadRequestException('Please provide a password when creating a user.');
 
     return this.service.createUser(data);
   }
 
-  @Mutation(returns => BaseUser)
+  @Mutation(returns => AuthUser)
   @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(PermissionLevel.ADMIN)
-  updateUser(@Args('id', ParseIntPipe) id: number, @Args('data') data: AuthCredentialsDto): Promise<BaseUser> {
+  updateUser(@Args('id', ParseIntPipe) id: number, @Args('data') data: AuthCredentialsDto): Promise<AuthUser> {
     return this.service.updateUser(id, data);
   }
 

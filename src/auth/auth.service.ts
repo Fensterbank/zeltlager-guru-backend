@@ -9,7 +9,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
-import { User, BaseUser } from './user.entity';
+import { User, AuthUser } from './user.entity';
 import { PermissionLevel } from './permission-level.enum';
 
 @Injectable()
@@ -18,16 +18,16 @@ export class AuthService {
     @InjectRepository(UserRepository)
     private userRepository: UserRepository,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   createUser = async (
     authCredentialsDto: AuthCredentialsDto,
-  ): Promise<BaseUser> => this.userRepository.signUp(authCredentialsDto);
+  ): Promise<AuthUser> => this.userRepository.signUp(authCredentialsDto);
 
   updateUser = async (
     id: number,
     dto: AuthCredentialsDto,
-  ): Promise<BaseUser> => {
+  ): Promise<AuthUser> => {
     const entity = await this.getUserById(id);
     return await this.userRepository.updateUser(entity, dto);
   };
@@ -62,7 +62,7 @@ export class AuthService {
     return entity;
   };
 
-  signIn = async (username: string, password: string): Promise<{ accessToken: string; user: BaseUser }> => {
+  signIn = async (username: string, password: string): Promise<AuthUser> => {
     const user = await this.userRepository.validateUserPassword(username, password);
 
     if (!user) throw new UnauthorizedException('Invalid username or password');
@@ -71,12 +71,10 @@ export class AuthService {
     const accessToken = await this.jwtService.sign(payload);
 
     return {
-      accessToken,
-      user: {
-        username: user.username,
-        id: user.id,
-        permissionLevel: user.permissionLevel,
-      },
+      username: user.username,
+      id: user.id,
+      permissionLevel: user.permissionLevel,
+      accessToken: accessToken,
     };
   };
 

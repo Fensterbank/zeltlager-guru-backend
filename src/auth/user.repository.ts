@@ -4,13 +4,13 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { User, BaseUser } from './user.entity';
+import { User, AuthUser } from './user.entity';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { PermissionLevel } from './permission-level.enum';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-  async signUp(authCredentialsDto: AuthCredentialsDto): Promise<BaseUser> {
+  async signUp(authCredentialsDto: AuthCredentialsDto): Promise<AuthUser> {
     const { username, password, permissionLevel } = authCredentialsDto;
 
     const user = new User();
@@ -25,6 +25,7 @@ export class UserRepository extends Repository<User> {
         username: username,
         id: user.id,
         permissionLevel: user.permissionLevel,
+        accessToken: null,
       };
     } catch (error) {
       if (error.code === '23505')
@@ -37,7 +38,7 @@ export class UserRepository extends Repository<User> {
   async updateUser(
     user: User,
     authCredentialsDto: AuthCredentialsDto,
-  ): Promise<BaseUser> {
+  ): Promise<AuthUser> {
     const { username, password, permissionLevel } = authCredentialsDto;
 
     user.username = username;
@@ -53,6 +54,7 @@ export class UserRepository extends Repository<User> {
         username: username,
         id: user.id,
         permissionLevel: user.permissionLevel,
+        accessToken: null,
       };
     } catch (error) {
       if (error.code === '23505')
@@ -64,7 +66,7 @@ export class UserRepository extends Repository<User> {
 
   validateUserPassword = async (
     username: string, password: string
-  ): Promise<BaseUser> => {
+  ): Promise<AuthUser> => {
     const user = await this.findOne({ username });
 
     if (user && (await user.validatePassword(password)))
@@ -72,6 +74,7 @@ export class UserRepository extends Repository<User> {
         username: user.username,
         id: user.id,
         permissionLevel: user.permissionLevel,
+        accessToken: null,
       };
     else return null;
   };

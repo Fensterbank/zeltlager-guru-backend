@@ -40,7 +40,7 @@ export class User extends BaseEntity {
 }
 
 @ObjectType()
-export class BaseUser {
+export class AuthUser {
   @Field(type => ID)
   id: number;
 
@@ -49,4 +49,7 @@ export class BaseUser {
 
   @Field()
   permissionLevel: PermissionLevel;
+
+  @Field()
+  accessToken: string;
 }

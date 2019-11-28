@@ -9,10 +9,11 @@ input AuthCredentialsDto {
   permissionLevel: String!
 }
 
-type BaseUser {
+type AuthUser {
   id: ID!
   username: String!
   permissionLevel: String!
+  accessToken: String!
 }
 
 type Camp {
@@ -102,8 +103,9 @@ type Location {
 }
 
 type Mutation {
-  createUser(data: AuthCredentialsDto!): BaseUser!
-  updateUser(data: AuthCredentialsDto!, id: Float!): BaseUser!
+  signIn(password: String!, username: String!): AuthUser!
+  createUser(data: AuthCredentialsDto!): AuthUser!
+  updateUser(data: AuthCredentialsDto!, id: Float!): AuthUser!
   deleteUser(id: Float!): Boolean!
   createOrganisation(data: OrganisationDto!): Organisation!
   updateOrganisation(data: OrganisationDto!, id: Float!): Organisation!
@@ -138,9 +140,8 @@ input OrganisationDto {
 }
 
 type Query {
-  signIn(password: String!, username: String!): String!
-  users: [BaseUser!]!
-  isSignedIn: BaseUser!
+  users: [AuthUser!]!
+  currentUser: AuthUser!
   organisation(id: Float!): Organisation!
   organisations(search: String!, skip: Int, take: Int): [Organisation!]!
   camp(id: Float!): Camp!
