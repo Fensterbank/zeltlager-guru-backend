@@ -31,6 +31,10 @@ export class Campground extends BaseEntity {
   @Column({ nullable: true })
   description: string;
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  url: string;
+
   @Field(type => Location)
   @ManyToOne(type => Location, x => x.campgrounds, { eager: true })
   location: Location;

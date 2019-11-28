@@ -72,6 +72,7 @@ type Campground {
   id: ID!
   name: String!
   description: String
+  url: String
   location: Location!
   campevents: [CampEvent!]!
 }
