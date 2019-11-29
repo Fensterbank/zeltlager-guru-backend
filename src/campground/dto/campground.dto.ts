@@ -11,6 +11,10 @@ export class CampgroundDto {
   @IsOptional()
   description: string;
 
+  @Field({ nullable: true })
+  @IsOptional()
+  url: string;
+
   @Field(type => Int, { nullable: true })
   @IsOptional()
   locationID: number;

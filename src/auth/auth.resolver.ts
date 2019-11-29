@@ -1,7 +1,7 @@
-import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { User, AuthUser } from './user.entity';
-import { UseGuards, BadRequestException, ParseIntPipe, UnauthorizedException } from '@nestjs/common';
+import { UseGuards, BadRequestException, ParseIntPipe } from '@nestjs/common';
 import { GqlAuthGuard } from './gqlAuth.guard';
 import { RolesGuard } from './roles.guard';
 import { Roles } from './roles.decorator';

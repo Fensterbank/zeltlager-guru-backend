@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { SearchDto } from '../search.dto';
 import { Camp } from './camp.entity';
 import { CampsService } from './camps.service';

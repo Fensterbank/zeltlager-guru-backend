@@ -10,6 +10,7 @@ import { Campground } from './campground.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LocationsService } from '../locations/locations.service';
 import { Logger } from 'winston';
+import { SearchDto } from '../search.dto';
 
 @Injectable()
 export class CampgroundsService {
@@ -19,7 +20,7 @@ export class CampgroundsService {
     private locationsService: LocationsService,
     @Inject('winston')
     private readonly logger: Logger,
-  ) {}
+  ) { }
 
   /**
    * Gets a specific campground.
@@ -33,10 +34,18 @@ export class CampgroundsService {
     return entity;
   };
 
-   /**
-   * Creates a new campground. Does create a new location entity if necessary.
-   * @param {CampgroundDto} dto - The data transport object containing all entity information.
+  /**
+   * Gets all organisations based on given filter.
+   * @param {SearchDto} filterDto - The filter to retreive organisations.
    */
+  getCampgrounds = async (filterDto: SearchDto): Promise<Campground[]> =>
+    this.repository.getCampgrounds(filterDto);
+
+
+  /**
+  * Creates a new campground. Does create a new location entity if necessary.
+  * @param {CampgroundDto} dto - The data transport object containing all entity information.
+  */
   createCampground = async (dto: CampgroundDto): Promise<Campground> => {
     const entity = new Campground();
     entity.name = dto.name;

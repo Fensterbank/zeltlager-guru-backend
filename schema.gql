@@ -80,6 +80,7 @@ type Campground {
 input CampgroundDto {
   name: String!
   description: String
+  url: String
   locationID: Int
   zip: String
   city: String
@@ -108,6 +109,9 @@ type Mutation {
   createUser(data: AuthCredentialsDto!): AuthUser!
   updateUser(data: AuthCredentialsDto!, id: Float!): AuthUser!
   deleteUser(id: Float!): Boolean!
+  createCampground(data: CampgroundDto!): Campground!
+  updateCampground(data: CampgroundDto!, id: Float!): Campground!
+  deleteCampground(id: Float!): Boolean!
   createOrganisation(data: OrganisationDto!): Organisation!
   updateOrganisation(data: OrganisationDto!, id: Float!): Organisation!
   deleteOrganisation(id: Float!): Boolean!
@@ -143,6 +147,8 @@ input OrganisationDto {
 type Query {
   users: [AuthUser!]!
   currentUser: AuthUser!
+  campground(id: Float!): Campground!
+  campgrounds(search: String!, skip: Int, take: Int): [Campground!]!
   organisation(id: Float!): Organisation!
   organisations(search: String!, skip: Int, take: Int): [Organisation!]!
   camp(id: Float!): Camp!
