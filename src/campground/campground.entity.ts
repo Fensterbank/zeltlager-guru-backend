@@ -3,14 +3,13 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToOne,
-  JoinColumn,
   ManyToOne,
   OneToMany,
 } from 'typeorm';
 import { Field, Int, ObjectType } from 'type-graphql';
 import { Location } from '../locations/location.entity';
 import { CampEvent } from '../campevents/campevent.entity';
+import { Picture } from '../pictures/picture.entity';
 
 @ObjectType()
 @Entity()
@@ -42,4 +41,8 @@ export class Campground extends BaseEntity {
   @Field(type => [CampEvent])
   @OneToMany(type => CampEvent, x => x.campground, { eager: false, nullable: false })
   campevents: CampEvent[];
+
+  @Field(type => Picture, { nullable: true })
+  @ManyToOne(type => Picture, x => x.campgrounds, { eager: true })
+  picture: Picture;
 }

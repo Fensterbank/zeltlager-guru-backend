@@ -3,7 +3,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Campground } from './campground.entity';
-import { SearchDto } from 'src/search.dto';
+import { SearchDto } from '../search.dto';
 
 @EntityRepository(Campground)
 export class CampgroundsRepository extends Repository<Campground> {
@@ -13,7 +13,10 @@ export class CampgroundsRepository extends Repository<Campground> {
     filterDto: SearchDto,
   ): Promise<Campground[]> => {
     const { search } = filterDto;
-    const query = this.createQueryBuilder('campgrounds').leftJoinAndSelect('campgrounds.location', 'location')
+    const query = this.createQueryBuilder('campgrounds')
+      .leftJoinAndSelect('campgrounds.location', 'location')
+      .leftJoinAndSelect('campgrounds.picture', 'picture');
+      
     if (search)
       query.where('campgrounds.name ILIKE :search', { search: `%${search}%` });
 

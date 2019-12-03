@@ -13,6 +13,8 @@ import { OrganisationsRepository } from '../organisations/organisations.reposito
 import { LocationsService } from '../locations/locations.service';
 import { LocationsRepository } from '../locations/locations.repository';
 import { CampEventsResolver } from './campevents.resolver';
+import { PicturesRepository } from '../pictures/pictures.repository';
+import { PicturesService } from '../pictures/pictures.service';
 
 @Module({
   imports: [
@@ -23,6 +25,7 @@ import { CampEventsResolver } from './campevents.resolver';
       OrganisationsRepository,
       CampsRepository,
       CampgroundsRepository,
+      PicturesRepository,
     ]),
     AuthModule,
   ],
@@ -33,7 +36,8 @@ import { CampEventsResolver } from './campevents.resolver';
     LocationsService,
     OrganisationsService,
     CampsService,
-    CampgroundsService
+    CampgroundsService,
+    PicturesService,
   ],
 })
 export class CampEventsModule {}

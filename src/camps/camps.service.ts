@@ -11,6 +11,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { SearchDto } from '../search.dto';
 import { OrganisationsService } from '../organisations/organisations.service';
 import { Logger } from 'winston';
+import { PicturesService } from '../pictures/pictures.service';
 
 @Injectable()
 export class CampsService {
@@ -18,6 +19,7 @@ export class CampsService {
     @InjectRepository(CampsRepository)
     private repository: CampsRepository,
     private orgService: OrganisationsService,
+    private picturesService: PicturesService,
     @Inject('winston')
     private readonly logger: Logger,
   ) { }
@@ -55,6 +57,9 @@ export class CampsService {
     entity.minAge = dto.minAge;
     entity.maxAge = dto.maxAge;
 
+    const picture = await this.picturesService.getPictureById(dto.pictureID);
+    entity.picture = picture;
+
     entity.organisation = await this.orgService.getOrganisationById(dto.organisationID);
     await entity.save();
     this.logger.info(`Camp ${entity.name} with ID #${entity.id} created.`);
@@ -78,6 +83,10 @@ export class CampsService {
     entity.kidsCount = dto.kidsCount;
     entity.minAge = dto.minAge;
     entity.maxAge = dto.maxAge;
+
+    const picture = await this.picturesService.getPictureById(dto.pictureID);
+    entity.picture = picture;
+
     await entity.save();
     this.logger.info(`Camp ${entity.name} with ID #${entity.id} updated.`);
     return entity;

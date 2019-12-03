@@ -23,9 +23,12 @@ export class OrganisationDto {
   @IsOptional()
   locationID: number;
 
+  @Field({ nullable: true })
+  @IsOptional()
+  pictureID: string;
+
 
   // it is possible to include location data to directly create / update a location
-  
   @Field({ nullable: true })
   @IsOptional()
   zip: string;

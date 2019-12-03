@@ -16,8 +16,10 @@ export class CampsRepository extends Repository<Camp> {
     const query =
       this.createQueryBuilder('camps')
         .leftJoinAndSelect('camps.organisation', 'organisation')
+        .leftJoinAndSelect('camps.picture', 'picture')
         .leftJoinAndSelect('organisation.location', 'location')
         .leftJoinAndSelect('camps.campEvents', 'campEvents');
+        
     if (search)
       query.where('camps.name ILIKE :search', { search: `${search}%` });
 

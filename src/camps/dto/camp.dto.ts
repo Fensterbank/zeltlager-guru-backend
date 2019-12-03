@@ -34,4 +34,8 @@ export class CampDto {
   @Field(type => Int)
   @IsNotEmpty()
   organisationID: number;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  pictureID: string;
 }

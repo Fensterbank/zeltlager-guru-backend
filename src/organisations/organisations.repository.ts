@@ -13,7 +13,9 @@ export class OrganisationsRepository extends Repository<Organisation> {
     filterDto: SearchDto,
   ): Promise<Organisation[]> => {
     const { search } = filterDto;
-    const query = this.createQueryBuilder('organisations').leftJoinAndSelect('organisations.location', 'location')
+    const query = this.createQueryBuilder('organisations')
+      .leftJoinAndSelect('organisations.location', 'location')
+      .leftJoinAndSelect('organisations.picture', 'picture')
     if (search)
       query.where('organisations.name ILIKE :search', { search: `%${search}%` });
 

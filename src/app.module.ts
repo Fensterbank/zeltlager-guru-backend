@@ -10,6 +10,7 @@ import { OrganisationsModule } from './organisations/organisations.module';
 import { CampsModule } from './camps/camps.module';
 import { CampEventsModule } from './campevents/campevents.module';
 import { GraphQLModule } from '@nestjs/graphql';
+import { PicturesModule } from './pictures/pictures.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { GraphQLModule } from '@nestjs/graphql';
     OrganisationsModule,
     CampsModule,
     CampEventsModule,
+    PicturesModule,
     GraphQLModule.forRoot({
       context: ({ req }) => ({ req }),
       autoSchemaFile: 'schema.gql',

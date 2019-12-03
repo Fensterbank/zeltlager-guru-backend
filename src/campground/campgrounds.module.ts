@@ -7,6 +7,8 @@ import { passportModule } from '../passport.module';
 import { LocationsRepository } from '../locations/locations.repository';
 import { LocationsService } from '../locations/locations.service';
 import { CampgroundsResolver } from './campgrounds.resolver';
+import { PicturesRepository } from '../pictures/pictures.repository';
+import { PicturesService } from '../pictures/pictures.service';
 
 @Module({
   imports: [
@@ -14,6 +16,7 @@ import { CampgroundsResolver } from './campgrounds.resolver';
     TypeOrmModule.forFeature([
       CampgroundsRepository,
       LocationsRepository,
+      PicturesRepository,
     ]),
     AuthModule,
   ],
@@ -22,6 +25,7 @@ import { CampgroundsResolver } from './campgrounds.resolver';
     CampgroundsResolver,
     CampgroundsService,
     LocationsService,
+    PicturesService,
   ],
 })
 export class CampgroundsModule {}

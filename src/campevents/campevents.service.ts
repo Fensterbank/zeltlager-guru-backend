@@ -13,6 +13,7 @@ import { SearchDto } from '../search.dto';
 import { CampsService } from '../camps/camps.service';
 import { CampgroundsService } from '../campground/campgrounds.service';
 import { Logger } from 'winston';
+import { PicturesService } from '../pictures/pictures.service';
 
 @Injectable()
 export class CampEventsService {
@@ -21,6 +22,7 @@ export class CampEventsService {
     private repository: CampEventsRepository,
     private campService: CampsService,
     private campgroundService: CampgroundsService,
+    private picturesService: PicturesService,
     @Inject('winston')
     private readonly logger: Logger,
   ) { }
@@ -60,6 +62,9 @@ export class CampEventsService {
     entity.teamCount = dto.teamCount;
     entity.kidsCount = dto.kidsCount;
 
+    const picture = await this.picturesService.getPictureById(dto.pictureID);
+    entity.picture = picture;
+
     entity.camp = await this.campService.getCampById(dto.campID);
 
     if (dto.campgroundID) {
@@ -93,6 +98,9 @@ export class CampEventsService {
     entity.end = dto.end;
     entity.teamCount = dto.teamCount;
     entity.kidsCount = dto.kidsCount;
+
+    const picture = await this.picturesService.getPictureById(dto.pictureID);
+    entity.picture = picture;
 
     // TODO: Maybe we need to update the campground too...
     await entity.save();

@@ -47,4 +47,8 @@ export class CampEventDto {
   @Field(type => CampgroundDto, { nullable: true })
   @IsOptional()
   campground: CampgroundDto;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  pictureID: string;
 }

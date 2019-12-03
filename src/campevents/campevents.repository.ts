@@ -13,7 +13,9 @@ export class CampEventsRepository extends Repository<CampEvent> {
     filterDto: SearchDto,
   ): Promise<CampEvent[]> => {
     const { search } = filterDto;
-    const query = this.createQueryBuilder('campevents');
+    const query = this.createQueryBuilder('campevents')
+      .leftJoinAndSelect('campevents.picture', 'picture');
+
     if (search)
       query.where('campevents.name ILIKE :search', { search: `${search}%` });
 

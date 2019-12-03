@@ -29,7 +29,7 @@
     "@nestjs/graphql": "^6.5.3",
     "@nestjs/jwt": "^6.1.1",
     "@nestjs/passport": "^6.1.0",
-    "@nestjs/platform-express": "^6.7.2",
+    "@nestjs/platform-express": "^6.10.5",
     "@nestjs/typeorm": "^6.2.0",
     "apollo-server-express": "^2.9.12",
     "bcrypt": "^3.0.6",
@@ -38,6 +38,7 @@
     "config": "^3.2.4",
     "graphql": "^14.5.8",
     "graphql-tools": "^4.0.6",
+    "multer": "^1.4.2",
     "nest-winston": "^1.2.0",
     "opencage-api-client": "^0.5.0",
     "passport": "^0.4.0",
@@ -48,6 +49,7 @@
     "rxjs": "^6.5.3",
     "type-graphql": "^0.17.5",
     "typeorm": "^0.2.20",
+    "uuid": "^3.3.3",
     "winston": "^3.2.1"
   },
   "devDependencies": {

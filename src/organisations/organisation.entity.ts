@@ -3,14 +3,13 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToOne,
-  JoinColumn,
   ManyToOne,
   OneToMany,
 } from 'typeorm';
 import { Field, Int, ObjectType } from 'type-graphql';
 import { Location } from '../locations/location.entity';
 import { Camp } from '../camps/camp.entity';
+import { Picture } from '../pictures/picture.entity';
 
 @ObjectType()
 @Entity()
@@ -46,4 +45,8 @@ export class Organisation extends BaseEntity {
   @Field(type => [Camp], { nullable: true })
   @OneToMany(type => Camp, x => x.organisation, { eager: false, nullable: false })
   camps: Camp[];
+
+  @Field(type => Picture, { nullable: true })
+  @ManyToOne(type => Picture, x => x.organisations, { eager: true })
+  picture: Picture;
 }

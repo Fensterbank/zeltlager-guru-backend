@@ -11,6 +11,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { LocationsService } from '../locations/locations.service';
 import { SearchDto } from '../search.dto';
 import { Logger } from 'winston';
+import { PicturesService } from '../pictures/pictures.service';
 
 @Injectable()
 export class OrganisationsService {
@@ -18,6 +19,7 @@ export class OrganisationsService {
     @InjectRepository(OrganisationsRepository)
     private repository: OrganisationsRepository,
     private locationsService: LocationsService,
+    private picturesService: PicturesService,
     @Inject('winston')
     private readonly logger: Logger,
   ) {}
@@ -52,6 +54,9 @@ export class OrganisationsService {
     entity.url = dto.url;
     entity.religion = dto.religion;
 
+    const picture = await this.picturesService.getPictureById(dto.pictureID);
+    entity.picture = picture;
+
     if (dto.locationID) {
       entity.location = await this.locationsService.getLocationById(dto.locationID);
     } else {
@@ -80,6 +85,9 @@ export class OrganisationsService {
     entity.description = dto.description;
     entity.url = dto.url;
     entity.religion = dto.religion;
+
+    const picture = await this.picturesService.getPictureById(dto.pictureID);
+    entity.picture = picture;
 
     entity.location = await this.locationsService.updateLocation(entity.location.id, {
       address: dto.address,

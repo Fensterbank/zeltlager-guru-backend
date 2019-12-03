@@ -11,6 +11,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { LocationsService } from '../locations/locations.service';
 import { Logger } from 'winston';
 import { SearchDto } from '../search.dto';
+import { PicturesService } from '../pictures/pictures.service';
 
 @Injectable()
 export class CampgroundsService {
@@ -18,6 +19,7 @@ export class CampgroundsService {
     @InjectRepository(CampgroundsRepository)
     private repository: CampgroundsRepository,
     private locationsService: LocationsService,
+    private picturesService: PicturesService,
     @Inject('winston')
     private readonly logger: Logger,
   ) { }
@@ -51,6 +53,9 @@ export class CampgroundsService {
     entity.name = dto.name;
     entity.description = dto.description;
 
+    const picture = await this.picturesService.getPictureById(dto.pictureID);
+    entity.picture = picture;
+
     if (dto.locationID) {
       entity.location = await this.locationsService.getLocationById(dto.locationID);
     } else {
@@ -82,6 +87,10 @@ export class CampgroundsService {
     entity.location.address = dto.address;
     entity.location.lat = dto.lat;
     entity.location.lng = dto.lng;
+
+    const picture = await this.picturesService.getPictureById(dto.pictureID);
+    entity.picture = picture;
+
     await entity.save();
     this.logger.info(`Campground ${entity.name} with ID #${entity.id} updated.`);
     return entity;
