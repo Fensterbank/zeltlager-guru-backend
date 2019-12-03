@@ -10,14 +10,14 @@ input AuthCredentialsDto {
 }
 
 type AuthUser {
-  id: ID!
+  id: Int!
   username: String!
   permissionLevel: String!
   accessToken: String!
 }
 
 type Camp {
-  id: ID!
+  id: Int!
   name: String!
   description: String!
   url: String
@@ -41,7 +41,7 @@ input CampDto {
 }
 
 type CampEvent {
-  id: ID!
+  id: Int!
   name: String!
   description: String
   url: String
@@ -69,7 +69,7 @@ input CampEventDto {
 }
 
 type Campground {
-  id: ID!
+  id: Int!
   name: String!
   description: String
   url: String
@@ -95,7 +95,7 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 scalar DateTime
 
 type Location {
-  id: ID!
+  id: Int!
   zip: String!
   address: String
   city: String!
@@ -107,24 +107,24 @@ type Location {
 type Mutation {
   signIn(password: String!, username: String!): AuthUser!
   createUser(data: AuthCredentialsDto!): AuthUser!
-  updateUser(data: AuthCredentialsDto!, id: Float!): AuthUser!
-  deleteUser(id: Float!): Boolean!
+  updateUser(data: AuthCredentialsDto!, id: Int!): AuthUser!
+  deleteUser(id: Int!): Boolean!
   createCampground(data: CampgroundDto!): Campground!
-  updateCampground(data: CampgroundDto!, id: Float!): Campground!
-  deleteCampground(id: Float!): Boolean!
+  updateCampground(data: CampgroundDto!, id: Int!): Campground!
+  deleteCampground(id: Int!): Boolean!
   createOrganisation(data: OrganisationDto!): Organisation!
-  updateOrganisation(data: OrganisationDto!, id: Float!): Organisation!
-  deleteOrganisation(id: Float!): Boolean!
+  updateOrganisation(data: OrganisationDto!, id: Int!): Organisation!
+  deleteOrganisation(id: Int!): Boolean!
   createCamp(data: CampDto!): Camp!
-  updateCamp(data: CampDto!, id: Float!): Camp!
-  deleteCamp(id: Float!): Boolean!
+  updateCamp(data: CampDto!, id: Int!): Camp!
+  deleteCamp(id: Int!): Boolean!
   createCampEvent(data: CampEventDto!): CampEvent!
-  updateCampEvent(data: CampEventDto!, id: Float!): CampEvent!
-  deleteCampEvent(id: Float!): Boolean!
+  updateCampEvent(data: CampEventDto!, id: Int!): CampEvent!
+  deleteCampEvent(id: Int!): Boolean!
 }
 
 type Organisation {
-  id: ID!
+  id: Int!
   name: String!
   description: String
   url: String
@@ -147,18 +147,18 @@ input OrganisationDto {
 type Query {
   users: [AuthUser!]!
   currentUser: AuthUser!
-  campground(id: Float!): Campground!
+  campground(id: Int!): Campground!
   campgrounds(search: String!, skip: Int, take: Int): [Campground!]!
-  organisation(id: Float!): Organisation!
+  organisation(id: Int!): Organisation!
   organisations(search: String!, skip: Int, take: Int): [Organisation!]!
-  camp(id: Float!): Camp!
+  camp(id: Int!): Camp!
   camps(search: String!, skip: Int, take: Int): [Camp!]!
-  campevent(id: Float!): CampEvent!
+  campevent(id: Int!): CampEvent!
   campevents(search: String!, skip: Int, take: Int): [CampEvent!]!
 }
 
 type User {
-  id: ID!
+  id: Int!
   username: String!
   password: String!
   salt: String!

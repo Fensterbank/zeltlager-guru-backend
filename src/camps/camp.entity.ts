@@ -8,7 +8,7 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { Field, ID, ObjectType, Int } from 'type-graphql';
+import { Field, ObjectType, Int } from 'type-graphql';
 import { Organisation } from '../organisations/organisation.entity';
 import { CampEvent } from '../campevents/campevent.entity';
 
@@ -19,7 +19,7 @@ export class Camp extends BaseEntity {
     super();
   }
 
-  @Field(type => ID)
+  @Field(type => Int)
   @PrimaryGeneratedColumn()
   id: number;
 

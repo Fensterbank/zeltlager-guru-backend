@@ -13,11 +13,15 @@ export class CampsRepository extends Repository<Camp> {
     filterDto: SearchDto,
   ): Promise<Camp[]> => {
     const { search } = filterDto;
-    const query = this.createQueryBuilder('camps');
+    const query =
+      this.createQueryBuilder('camps')
+        .leftJoinAndSelect('camps.organisation', 'organisation')
+        .leftJoinAndSelect('organisation.location', 'location')
+        .leftJoinAndSelect('camps.campEvents', 'campEvents');
     if (search)
       query.where('camps.name ILIKE :search', { search: `${search}%` });
 
-    query.orderBy('name', 'ASC');
+    query.orderBy('camps.name', 'ASC');
     return await query.getMany();
   };
 }

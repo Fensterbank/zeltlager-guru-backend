@@ -5,7 +5,7 @@ import {
   Column,
   OneToMany,
 } from 'typeorm';
-import { Field, ID, ObjectType } from 'type-graphql';
+import { Field, Int, ObjectType } from 'type-graphql';
 import { Campground } from '../campground/campground.entity';
 import { Organisation } from '../organisations/organisation.entity';
 
@@ -16,7 +16,7 @@ export class Location extends BaseEntity {
     super();
   }
 
-  @Field(type => ID)
+  @Field(type => Int)
   @PrimaryGeneratedColumn()
   id: number;
 

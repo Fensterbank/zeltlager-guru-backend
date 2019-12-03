@@ -8,6 +8,7 @@ import { Roles } from './roles.decorator';
 import { PermissionLevel } from './permission-level.enum';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { GetUser } from './get-user.decorator';
+import { Int } from 'type-graphql';
 
 @Resolver(of => AuthUser)
 export class AuthResolver {
@@ -56,14 +57,14 @@ export class AuthResolver {
   @Mutation(returns => AuthUser)
   @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(PermissionLevel.ADMIN)
-  updateUser(@Args('id', ParseIntPipe) id: number, @Args('data') data: AuthCredentialsDto): Promise<AuthUser> {
+  updateUser(@Args({ name: 'id', type: () => Int }, ParseIntPipe) id: number, @Args('data') data: AuthCredentialsDto): Promise<AuthUser> {
     return this.service.updateUser(id, data);
   }
 
   @Mutation(returns => Boolean)
   @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(PermissionLevel.ADMIN)
-  deleteUser(@Args('id', ParseIntPipe) id: number) {
+  deleteUser(@Args({ name: 'id', type: () => Int }, ParseIntPipe) id: number) {
     return this.service.deleteUser(id);
   }
 }

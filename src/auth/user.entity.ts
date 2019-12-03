@@ -6,14 +6,14 @@ import {
   Unique,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { Field, ID, ObjectType } from 'type-graphql';
+import { Field, Int, ObjectType } from 'type-graphql';
 import { PermissionLevel } from './permission-level.enum';
 
 @ObjectType()
 @Entity()
 @Unique(['username'])
 export class User extends BaseEntity {
-  @Field(type => ID)
+  @Field(type => Int)
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -41,7 +41,7 @@ export class User extends BaseEntity {
 
 @ObjectType()
 export class AuthUser {
-  @Field(type => ID)
+  @Field(type => Int)
   id: number;
 
   @Field()
