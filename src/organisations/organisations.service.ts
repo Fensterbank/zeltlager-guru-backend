@@ -78,6 +78,7 @@ export class OrganisationsService {
     const entity = await this.getOrganisationById(id);
     entity.name = dto.name;
     entity.description = dto.description;
+    entity.url = dto.url;
     entity.religion = dto.religion;
 
     entity.location = await this.locationsService.updateLocation(entity.location.id, {
